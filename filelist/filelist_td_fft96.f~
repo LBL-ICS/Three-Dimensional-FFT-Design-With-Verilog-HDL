@@ -1,0 +1,3 @@
+../dut/td_fft96/td_fft96.v
+../dut/td_fft96/FFT_mr96_basic.v
+../tb/td_fft96_tb.sv

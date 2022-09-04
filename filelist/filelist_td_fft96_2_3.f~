@@ -1,0 +1,4 @@
+../dut/td_fft96_2_3_streaming/td_fft96_2_3.v
+../dut/td_fft96_2_3_streaming/od_fft96_2_3.v
+../dut/td_fft96_2_3_streaming/buf_ctl.v
+../tb/td_fft96_tb.sv
