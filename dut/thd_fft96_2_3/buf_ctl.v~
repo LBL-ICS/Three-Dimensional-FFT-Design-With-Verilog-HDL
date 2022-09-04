@@ -1,0 +1,50 @@
+//*********************************************************************************************//
+//----------------    Buffer Controller  ----------------------------------------------------////
+//---------------- Author: Xiaokun Yang  ----------------------------------------------------////
+//---------------- Lawrence Berkeley Lab ----------------------------------------------------////
+//---------------- Date: 7/25/2022 ----------------------------------------------------------//// 
+//----- Version 1: Buffer Constrol Module ---------------------------------------------------////
+//----- Date: 7/28/2022 ---------------------------------------------------------------------////
+//----- Version 2:                                                   ------------------------////
+//----- Date:           ---------------------------------------------------------------------////
+//*********************************************************************************************//
+//*********************************************************************************************//
+module buf_ctl (input         clock            ,
+                input         reset            ,
+                input         mem_wr           ,
+                input         mem_rd           ,
+                input  [6:0]  row_no           ,
+                input  [6:0]  col_no           ,
+                input  [6:0]  dep_no           ,
+                input  [63:0] mem_wrdata0      ,
+                input  [63:0] mem_wrdata1      ,
+                output [63:0] mem_rddata0      ,
+                output [63:0] mem_rddata1      );
+
+parameter CUBIC_D=96;
+
+reg [63:0] mem[CUBIC_D*CUBIC_D*CUBIC_D-1:0];
+
+wire [15:0] mem_wr_addr0 = row_no*16'd96*16'd96+dep_no*16'd96+col_no+16'd0; 
+wire [15:0] mem_wr_addr1 = row_no*16'd96*16'd96+dep_no*16'd96+col_no+16'd1;
+
+integer i;
+always @(posedge clock) begin 
+  if(reset) begin
+    for(i=0; i<CUBIC_D*CUBIC_D*CUBIC_D; i=i+1) begin
+      mem[i]<=64'h0;
+    end
+  end else if(mem_wr) begin 
+      //mem[row_no*96*96+dep_no*96+col_no  ]  = mem_wrdata0   ; 
+      //mem[row_no*96*96+dep_no*96+col_no+1]  = mem_wrdata1   ;
+      mem[mem_wr_addr0]  = mem_wrdata0   ; 
+      mem[mem_wr_addr1]  = mem_wrdata1   ;
+  end
+end
+
+wire [15:0] mem_rdaddr0  = dep_no*16'd96*16'd96+col_no*16'd96+row_no*2+16'd0;
+wire [15:0] mem_rdaddr1  = dep_no*16'd96*16'd96+col_no*16'd96+row_no*2+16'd1;
+assign mem_rd_data0  = mem_rd ? mem[mem_rd_addr0]  : 64'h0;
+assign mem_rd_data1  = mem_rd ? mem[mem_rd_addr1]  : 64'h0;
+
+endmodule
