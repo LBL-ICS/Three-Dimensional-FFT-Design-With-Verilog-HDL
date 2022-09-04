@@ -1,0 +1,82 @@
+#!/bin/csh -f
+################################################################################
+# simulation top script
+# change modelsim in this file dir and run "do this_file.do"
+# project dir ---+---> hdl source dir
+#                +---> sim script dir
+#
+################################################################################
+# check if current dir has modelsim config file
+set has_config  [file exists modelsim.do]
+# config modelsim 
+if {$has_config==1} { do modelsim.do  ; }
+
+echo "+====================================="
+echo "| Creat Lib Work soc                  "
+echo "+====================================="
+vlib work
+vmap work work 
+
+echo "+====================================="
+echo "| Complile RTL Code of soc            "
+echo "+====================================="
+vlog +define+FFT_SR8_R2\
+     -f ../filelist/filelist_FFT_sr8_r2.f
+
+echo "+====================================="
+echo "| Compiler Pass                       "
+echo "| Being to Run Simulation             "
+echo "+====================================="
+vsim work.FFT_tb -t 1ns
+
+###################################### mus  ####################################
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/clock
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/reset
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_ready
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_3_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_3_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_4_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_4_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_5_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_5_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_6_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_6_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_7_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_in_7_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_validate
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_3_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_3_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_4_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_4_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_5_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_5_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_6_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_6_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_7_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_sr8_r2/io_out_7_Im
+
+run 1ms                                                                             
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     

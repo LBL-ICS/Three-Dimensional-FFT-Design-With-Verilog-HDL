@@ -1,0 +1,239 @@
+#!/bin/csh -f
+################################################################################
+# simulation top script
+# change modelsim in this file dir and run "do this_file.do"
+# project dir ---+---> hdl source dir
+#                +---> sim script dir
+#
+################################################################################
+# check if current dir has modelsim config file
+set has_config  [file exists modelsim.do]
+# config modelsim 
+if {$has_config==1} { do modelsim.do  ; }
+
+echo "+====================================="
+echo "| Creat Lib Work soc                  "
+echo "+====================================="
+vlib work
+vmap work work 
+
+echo "+====================================="
+echo "| Complile RTL Code of soc            "
+echo "+====================================="
+vlog +define+FFT_824_STREAMING\
+    -f ../filelist/filelist_FFT_824_streaming.f
+
+echo "+====================================="
+echo "| Compiler Pass                       "
+echo "| Being to Run Simulation             "
+echo "+====================================="
+vsim work.FFT_tb -t 1ns
+
+###################################### mus  ####################################
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/clock
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/reset
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_in_ready
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_in_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_in_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_in_3_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_in_3_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_out_validate
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_out_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_out_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_out_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_out_3_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/io_out_3_Im
+
+
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_in_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_in_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_in_3_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_in_3_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_in_en_0
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_in_en_1
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_in_en_2
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_in_en_3
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_in_en_4
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_out_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_out_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_out_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_out_3_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming/io_out_3_Im
+
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2/io_out_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_1/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_1/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_1/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_1/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_1/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_1/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_1/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_1/io_out_1_Im
+
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_in_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_in_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_in_3_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_in_3_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_in_en_0
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_in_en_1
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_in_en_2
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_in_en_3
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_in_en_4
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_out_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_out_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_out_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_out_3_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_1/io_out_3_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_in_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_in_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_in_3_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_in_3_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_in_en_0
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_in_en_1
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_out_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_out_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_out_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_out_3_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed/io_out_3_Im
+
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_2/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_2/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_2/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_2/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_2/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_2/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_2/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_2/io_out_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_3/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_3/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_3/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_3/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_3/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_3/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_3/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_3/io_out_1_Im
+
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_in_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_in_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_in_3_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_in_3_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_in_en_0
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_in_en_1
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_in_en_2
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_in_en_3
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_in_en_4
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_out_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_out_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_out_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_out_3_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_2/io_out_3_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_in_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_in_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_in_3_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_in_3_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_in_en_0
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_in_en_1
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_out_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_out_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_out_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_out_3_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/TwiddleFactorsStreamed_1/io_out_3_Im
+
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_4/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_4/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_4/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_4/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_4/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_4/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_4/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_4/io_out_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_5/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_5/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_5/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_5/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_5/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_5/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_5/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/DFT_r_v2_5/io_out_1_Im
+
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_in_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_in_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_in_3_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_in_3_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_in_en_0
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_in_en_1
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_in_en_2
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_in_en_3
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_in_en_4
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_out_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_out_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_out_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_out_3_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_824_streaming/PermutationsWithStreaming_3/io_out_3_Im
+
+run 1ms                                                                             
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     

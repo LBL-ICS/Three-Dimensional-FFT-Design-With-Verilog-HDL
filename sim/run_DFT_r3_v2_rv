@@ -1,0 +1,64 @@
+#!/bin/csh -f
+################################################################################
+# simulation top script
+# change modelsim in this file dir and run "do this_file.do"
+# project dir ---+---> hdl source dir
+#                +---> sim script dir
+#
+################################################################################
+# check if current dir has modelsim config file
+set has_config  [file exists modelsim.do]
+# config modelsim 
+if {$has_config==1} { do modelsim.do  ; }
+
+echo "+====================================="
+echo "| Creat Lib Work soc                  "
+echo "+====================================="
+vlib work
+vmap work work 
+
+echo "+====================================="
+echo "| Complile RTL Code of soc            "
+echo "+====================================="
+vlog +define+DFT_R3\
+     +define+DFT_R3_V2_RV\
+     -f ../filelist/filelist_DFT_r3_v2_rv.f
+
+echo "+====================================="
+echo "| Compiler Pass                       "
+echo "| Being to Run Simulation             "
+echo "+====================================="
+vsim work.FFT_tb -t 1ns
+
+###################################### mus  ####################################
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_DFT_r3_v2_rv/clock
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_DFT_r3_v2_rv/reset
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_DFT_r3_v2_rv/io_in_ready
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_DFT_r3_v2_rv/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_DFT_r3_v2_rv/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_DFT_r3_v2_rv/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_DFT_r3_v2_rv/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_DFT_r3_v2_rv/io_in_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_DFT_r3_v2_rv/io_in_2_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_DFT_r3_v2_rv/io_out_validate
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_DFT_r3_v2_rv/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_DFT_r3_v2_rv/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_DFT_r3_v2_rv/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_DFT_r3_v2_rv/io_out_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_DFT_r3_v2_rv/io_out_2_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_DFT_r3_v2_rv/io_out_2_Im
+
+#run 1ms                                                                             
+run 1us                                                                             
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     
+                                                                                     

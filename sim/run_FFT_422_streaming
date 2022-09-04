@@ -1,0 +1,186 @@
+#!/bin/csh -f
+################################################################################
+# simulation top script
+# change modelsim in this file dir and run "do this_file.do"
+# project dir ---+---> hdl source dir
+#                +---> sim script dir
+#
+################################################################################
+# check if current dir has modelsim config file
+set has_config  [file exists modelsim.do]
+# config modelsim 
+if {$has_config==1} { do modelsim.do  ; }
+
+echo "+====================================="
+echo "| Creat Lib Work soc                  "
+echo "+====================================="
+vlib work
+vmap work work 
+
+echo "+====================================="
+echo "| Complile RTL Code of soc            "
+echo "+====================================="
+vlog +define+FFT_422_STREAMING\
+     -f ../filelist/filelist_FFT_422_streaming.f
+
+echo "+====================================="
+echo "| Compiler Pass                       "
+echo "| Being to Run Simulation             "
+echo "+====================================="
+vsim work.FFT_tb -t 1ns
+
+###################################### mus  ####################################
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/clock
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/reset
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/io_in_ready
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/io_out_validate
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/io_out_1_Im
+
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/clock
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/reset
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/io_in_en_0
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/io_in_en_1
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/io_in_en_2
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/io_in_en_3
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/io_in_en_4
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/io_out_1_Im
+
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2/clock
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2/reset
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2_1/clock
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2_1/reset
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2_1/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2_1/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2_1/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2_1/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2_1/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2_1/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2_1/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2_1/io_out_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/DFT_r_v2/io_out_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_1/clock
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_1/reset
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_1/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_1/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_1/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_1/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_1/io_in_en_0
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_1/io_in_en_1
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_1/io_in_en_2
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_1/io_in_en_3
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_1/io_in_en_4
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_1/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_1/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_1/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_1/io_out_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/clock
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/reset
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/io_in_en_0
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/io_in_en_1
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/io_in_en_2
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/io_in_en_3
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/io_in_en_4
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/io_out_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/TwiddleFactorsStreamed/clock
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/TwiddleFactorsStreamed/reset
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/TwiddleFactorsStreamed/io_in_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/TwiddleFactorsStreamed/io_in_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/TwiddleFactorsStreamed/io_in_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/TwiddleFactorsStreamed/io_in_1_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/TwiddleFactorsStreamed/io_in_en_0
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/TwiddleFactorsStreamed/io_in_en_1
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/TwiddleFactorsStreamed/io_out_0_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/TwiddleFactorsStreamed/io_out_0_Im
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/TwiddleFactorsStreamed/io_out_1_Re
+add wave -noupdate -format logic -radix hexadecimal FFT_tb/u_FFT_422_streaming/TwiddleFactorsStreamed/io_out_1_Im
+
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_clock
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/clock
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_io_in_raddr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_in_raddr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_io_in_waddr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_in_waddr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_io_in_data_Re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_in_data_Re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_io_in_data_Im
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_in_data_Im
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_io_re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_io_wr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_wr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_io_en
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_en
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_io_out_data_Re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_out_data_Re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_io_out_data_Im
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_out_data_Im
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_1_clock
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_2_clock
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/clock
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_2_io_in_raddr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_in_raddr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_2_io_in_waddr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_in_waddr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_2_io_in_data_Re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_in_data_Re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_2_io_in_data_Im
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_in_data_Im
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_2_io_re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_2_io_wr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_wr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_2_io_en
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_en
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_2_io_out_data_Re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_out_data_Re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_2_io_out_data_Im
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming_2/RAM_Block_3/io_out_data_Im
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_3_clock
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_3_io_in_raddr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_3_io_in_waddr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_3_io_in_data_Re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_3_io_in_data_Im
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_3_io_re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_3_io_wr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_3_io_en
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_3_io_out_data_Re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_3_io_out_data_Im
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_1_io_in_raddr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_1_io_in_waddr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_1_io_in_data_Re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_1_io_in_data_Im
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_1_io_re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_1_io_wr
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_1_io_en
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_1_io_out_data_Re
+add wave -position insertpoint /FFT_tb/u_FFT_422_streaming/PermutationsWithStreaming/RAM_Block_1_io_out_data_Im
+
+run 1ms                                                                          

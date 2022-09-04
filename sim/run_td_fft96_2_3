@@ -1,0 +1,146 @@
+#!/bin/csh -f
+################################################################################
+# simulation top script
+# change modelsim in this file dir and run "do this_file.do"
+# project dir ---+---> hdl source dir
+#                +---> sim script dir
+#
+################################################################################
+# check if current dir has modelsim config file
+set has_config  [file exists modelsim.do]
+# config modelsim 
+if {$has_config==1} { do modelsim.do  ; }
+
+echo "+====================================="
+echo "| Creat Lib Work soc                  "
+echo "+====================================="
+vlib work
+vmap work work 
+
+echo "+====================================="
+echo "| Complile RTL Code of soc            "
+echo "+====================================="
+vlog +define+TD_FFT96_2_3\
+     -f ../filelist/filelist_td_fft96_2_3.f
+
+echo "+====================================="
+echo "| Compiler Pass                       "
+echo "| Being to Run Simulation             "
+echo "+====================================="
+vsim work.td_fft96_tb -t 1ns
+
+###################################### mus  ####################################
+
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/clock        
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/reset        
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/io_in_ready  
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/io_in_0_Re   
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/io_in_0_Im   
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/io_in_1_Re   
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/io_in_1_Im   
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/io_out_validate
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/io_out_0_Re  
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/io_out_0_Im  
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/io_out_1_Re  
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/io_out_1_Im  
+
+add wave -color red -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st0_rdy 
+add wave -color red -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st0_od_vld      
+add wave -color red -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st0_td_rdy      
+add wave -color red -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st0_td_vld      
+add wave -color red -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st0_td_validate 
+add wave -color red -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/cnt0_en 
+add wave -color red -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/cnt0 
+
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st1_rdy 
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st1_od_vld      
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st1_td_rdy      
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st1_td_vld      
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st1_td_validate 
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/cnt1_en 
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/cnt1 
+
+add wave -color orange -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st2_rdy 
+add wave -color orange -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st2_od_vld      
+add wave -color orange -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st2_td_rdy      
+add wave -color orange -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st2_td_vld      
+add wave -color orange -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st2_td_validate 
+add wave -color orange -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/cnt2_en 
+add wave -color orange -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/cnt2 
+
+add wave -color purple -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st3_rdy 
+add wave -color purple -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st3_od_vld      
+add wave -color purple -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st3_td_rdy      
+add wave -color purple -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st3_td_vld      
+add wave -color purple -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/st3_td_validate 
+add wave -color purple -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/cnt3_en 
+add wave -color purple -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/cnt3 
+
+add wave -color red -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b2_bfu_ctl/clock
+add wave -color red -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b2_bfu_ctl/reset
+add wave -color red -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b2_bfu_ctl/mem_wr
+add wave -color red -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b2_bfu_ctl/mem_rd
+add wave -color red -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b2_bfu_ctl/mem_addr
+add wave -color red -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b2_bfu_ctl/mem_wrdata0
+add wave -color red -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b2_bfu_ctl/mem_wrdata1
+add wave -color red -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b2_bfu_ctl/mem_rddata0
+add wave -color red -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b2_bfu_ctl/mem_rddata1
+
+add wave -color yellow -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b3_bfu_ctl/clock
+add wave -color yellow -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b3_bfu_ctl/reset
+add wave -color yellow -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b3_bfu_ctl/mem_wr
+add wave -color yellow -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b3_bfu_ctl/mem_rd
+add wave -color yellow -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b3_bfu_ctl/mem_addr
+add wave -color yellow -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b3_bfu_ctl/mem_wrdata0
+add wave -color yellow -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b3_bfu_ctl/mem_wrdata1
+add wave -color yellow -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b3_bfu_ctl/mem_rddata0
+add wave -color yellow -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b3_bfu_ctl/mem_rddata1
+
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/sd_od_fft96_2_3/clock
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/sd_od_fft96_2_3/reset
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/sd_od_fft96_2_3/io_in_0_Re
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/sd_od_fft96_2_3/io_in_0_Im
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/sd_od_fft96_2_3/io_in_1_Re
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/sd_od_fft96_2_3/io_in_1_Im
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/sd_od_fft96_2_3/io_in_ready
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/sd_od_fft96_2_3/io_out_validate
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/sd_od_fft96_2_3/io_out_0_Re
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/sd_od_fft96_2_3/io_out_0_Im
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/sd_od_fft96_2_3/io_out_1_Re
+add wave -color blue -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/sd_od_fft96_2_3/io_out_1_Im
+
+add wave -color orange -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b1_bfu_ctl/clock
+add wave -color orange -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b1_bfu_ctl/reset
+add wave -color orange -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b1_bfu_ctl/mem_wr
+add wave -color orange -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b1_bfu_ctl/mem_rd
+add wave -color orange -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b1_bfu_ctl/mem_addr
+add wave -color orange -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b1_bfu_ctl/mem_wrdata0
+add wave -color orange -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b1_bfu_ctl/mem_wrdata1
+add wave -color orange -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b1_bfu_ctl/mem_rddata0
+add wave -color orange -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b1_bfu_ctl/mem_rddata1
+
+add wave -color purple -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b0_bfu_ctl/clock
+add wave -color purple -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b0_bfu_ctl/reset
+add wave -color purple -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b0_bfu_ctl/mem_wr
+add wave -color purple -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b0_bfu_ctl/mem_rd
+add wave -color purple -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b0_bfu_ctl/mem_addr
+add wave -color purple -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b0_bfu_ctl/mem_wrdata0
+add wave -color purple -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b0_bfu_ctl/mem_wrdata1
+add wave -color purple -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b0_bfu_ctl/mem_rddata0
+add wave -color purple -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/b0_bfu_ctl/mem_rddata1
+
+add wave -color pink -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/ft_od_fft96_2_3/clock
+add wave -color pink -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/ft_od_fft96_2_3/reset
+add wave -color pink -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/ft_od_fft96_2_3/io_in_0_Re
+add wave -color pink -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/ft_od_fft96_2_3/io_in_0_Im
+add wave -color pink -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/ft_od_fft96_2_3/io_in_1_Re
+add wave -color pink -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/ft_od_fft96_2_3/io_in_1_Im
+add wave -color pink -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/ft_od_fft96_2_3/io_in_ready
+add wave -color pink -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/ft_od_fft96_2_3/io_out_validate
+add wave -color pink -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/ft_od_fft96_2_3/io_out_0_Re
+add wave -color pink -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/ft_od_fft96_2_3/io_out_0_Im
+add wave -color pink -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/ft_od_fft96_2_3/io_out_1_Re
+add wave -color pink -radix hexadecimal /td_fft96_tb/u_td_fft96_2_3/ft_od_fft96_2_3/io_out_1_Im
+
+run 1ms                                                                            
+
